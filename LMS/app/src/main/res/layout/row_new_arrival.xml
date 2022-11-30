@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5sp"
+    android:background="@drawable/white_all_round"
+    android:elevation="4sp">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="130sp"
+        android:layout_height="130sp"
+        android:background="@drawable/white_all_round"
+        app:cardCornerRadius="15sp"
+        app:cardElevation="4sp">
+
+        <ImageView
+            android:id="@+id/imgBook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/demo_book" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="bottom|left"
+            android:layout_marginLeft="5sp"
+            android:layout_marginBottom="5sp"
+            app:cardCornerRadius="45sp"
+            app:cardElevation="4sp">
+
+            <ImageView
+                android:id="@+id/imgTeacher"
+                android:layout_width="45sp"
+                android:layout_height="45sp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/demo_profile" />
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10sp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvBookTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Python Programming..."
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvBookDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="this is demo book"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tvAuthorName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Author : Ravi Panchal"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvTeacherName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:text="R V Panchal" />
+
+            <ImageView
+                android:id="@+id/imgVerified"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:background="@drawable/lms_green_all_round"
+                app:srcCompat="@drawable/icon_verfied" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

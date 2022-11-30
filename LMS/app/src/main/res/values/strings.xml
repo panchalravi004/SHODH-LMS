@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">LMS</string>
+    <string name="dashboard_title">LMS Dashboard</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="ebooks">E-Books</string>
+    <string name="books">Books</string>
+    <string name="myBooks">My Books</string>
+    <string name="notifications">Notifications</string>
+    <string name="faqs">FAQs</string>
+    <string name="logout">Logout</string>
+
+    <!--  ALL FONT SIZE  -->
+    <dimen name="page_title">20sp</dimen>
 </resources>

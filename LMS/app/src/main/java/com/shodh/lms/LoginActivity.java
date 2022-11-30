@@ -3,6 +3,7 @@ package com.shodh.lms;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,18 +33,15 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    doLogin();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                doLogin();
             }
         });
     }
 
-    private void doLogin() throws InterruptedException {
+    private void doLogin(){
         if(validate()){
             //Do Some Authentication Activity Here
+            startActivity(new Intent(this,DashboardActivity.class));
         }
     }
 

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="@string/home"
+        android:icon="@drawable/icon_home"/>
+    <item
+        android:id="@+id/profile"
+        android:title="@string/profile"
+        android:icon="@drawable/icon_profile"/>
+    <item
+        android:id="@+id/ebooks"
+        android:title="@string/ebooks"
+        android:icon="@drawable/icon_ebooks"/>
+    <item
+        android:id="@+id/books"
+        android:title="@string/books"
+        android:icon="@drawable/icon_books"/>
+    <item
+        android:id="@+id/myBooks"
+        android:title="@string/myBooks"
+        android:icon="@drawable/icon_favorite"/>
+    <item
+        android:id="@+id/notification"
+        android:title="@string/notifications"
+        android:icon="@drawable/icon_bell_ring"/>
+    <item
+        android:id="@+id/faqs"
+        android:title="@string/faqs"
+        android:icon="@drawable/icon_help"/>
+    <item
+        android:id="@+id/logout"
+        android:title="@string/logout"
+        android:icon="@drawable/icon_logout"/>
+
+
+</menu>
