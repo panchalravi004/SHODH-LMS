@@ -5,8 +5,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -43,8 +47,8 @@ public class MessageActivity extends AppCompatActivity {
     public void openMessageDialog(View view) {
         Dialog dialog = new Dialog(this,R.style.DialogStyle);
         dialog.setContentView(R.layout.dialog_new_message);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_all_round);
-
+//        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_all_round);
+//
         ImageButton btnClose;
         Button btnSend;
         EditText etSubject,etMessage;
@@ -62,5 +66,9 @@ public class MessageActivity extends AppCompatActivity {
         });
 
         dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.BottomDialogAnimation;
+        dialog.getWindow().setGravity(Gravity.CENTER);
     }
 }

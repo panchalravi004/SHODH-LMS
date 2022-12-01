@@ -32,7 +32,11 @@
     </style>
 
     <style name="DialogStyle" parent="Theme.AppCompat.Dialog">
-        <item name="windowMinWidthMajor">90%</item>
-        <item name="windowMinWidthMinor">90%</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+    <style name="BottomDialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/dialog_slide_in_bottom</item>
+        <item name="android:windowExitAnimation">@anim/dialog_slide_out_bottom</item>
     </style>
 </resources>

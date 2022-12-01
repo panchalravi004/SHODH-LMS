@@ -29,7 +29,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ScrollView scrollView;
     private View profileHeaderView;
 
-    private CardView cardViewUserProfile;
+    private CardView cardViewUserProfile,btnGoToBack;
     private ImageView imgUserProfile;
     private TextView tvUserName,tvEnrollNo,tvCollege,tvCourse,tvSemester,tvDob,tvGender;
     private EditText etEmail,etMobile,etAddress,etPassword;
@@ -48,6 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
         scrollView = (ScrollView) findViewById(R.id.scrollview);
         profileHeaderView = (View) findViewById(R.id.profile_header_view);
         cardViewUserProfile = (CardView) findViewById(R.id.cardViewUserProfile);
+        btnGoToBack = (CardView) findViewById(R.id.btnGoToBack);
         imgUserProfile = (ImageView) findViewById(R.id.imgUserProfile);
         tvUserName = (TextView) findViewById(R.id.tvUserName);
         tvEnrollNo= (TextView) findViewById(R.id.tvEnrollNo);
@@ -89,6 +90,10 @@ public class ProfileActivity extends AppCompatActivity {
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(70);
 
+                    btnGoToBack.animate().translationX(-40f).translationY(20f)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .setDuration(70);
+
                     anim = ValueAnimator.ofInt(profileHeaderView.getMeasuredHeight(), 240 - 70);
                     anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
                         @Override
@@ -105,6 +110,10 @@ public class ProfileActivity extends AppCompatActivity {
                             .setDuration(150);
 
                     cardViewUserProfile.animate().translationX(0).translationY(0).scaleX(1f).scaleY(1f)
+                            .setInterpolator(new AccelerateDecelerateInterpolator())
+                            .setDuration(150);
+
+                    btnGoToBack.animate().translationX(0).translationY(0)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(150);
 

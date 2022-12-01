@@ -2,6 +2,7 @@ package com.shodh.lms;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,6 @@ public class SplashScreen extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        startActivity(new Intent(this,MessageActivity.class));
+        startActivity(new Intent(this, LoginActivity.class));
     }
 }

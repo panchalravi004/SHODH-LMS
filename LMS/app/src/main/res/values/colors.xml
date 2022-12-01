@@ -10,6 +10,7 @@
 
     <color name="lms_grey">#F5F5F5</color>
     <color name="lms_grey_100">#DCDCDC</color>
+    <color name="lms_grey_150">#6C6C6C</color>
     <color name="lms_green">#007504</color>
     <color name="lms_red">#FF3400</color>
     <color name="lms_orange">#FFA200</color>
