@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,10 +60,10 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         navigationView.setNavigationItemSelectedListener(this);
 
         //set recycle view for new arrival slider
-        setRecycleView();
+        setSliderRecycleView();
     }
 
-    private void setRecycleView() {
+    private void setSliderRecycleView() {
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
         newArrivalSlider.setLayoutManager(linearLayoutManager);
@@ -89,6 +90,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()){
+            case R.id.profile:
+                startActivity(new Intent(this,ProfileActivity.class));
+                break;
+        }
 
         Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
 

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="textView10" type="id" />
+    <item name="tvEnrollNo" type="id" />
+    <item name="tvCollegeName" type="id" />
+</resources>
