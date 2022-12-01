@@ -46,6 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="15sp"
+                android:padding="5sp"
                 android:text="@string/profile"
                 android:textColor="@color/black"
                 android:textSize="@dimen/h1" />
@@ -113,7 +114,9 @@
                         android:id="@+id/textView10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/no"
                         android:textSize="@dimen/h3" />
 
@@ -122,6 +125,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="21034211016"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -136,7 +140,9 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/college"
                         android:textSize="@dimen/h3" />
 
@@ -146,6 +152,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:ellipsize="middle"
+                        android:padding="5sp"
                         android:text="A M Patel Institute of Computer Studies"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -160,7 +167,9 @@
                         android:id="@+id/textView12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/course"
                         android:textSize="@dimen/h3" />
 
@@ -169,6 +178,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="MCA"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -183,7 +193,9 @@
                         android:id="@+id/textView13"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/semester"
                         android:textSize="@dimen/h3" />
 
@@ -192,6 +204,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="3"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -206,7 +219,9 @@
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/dob"
                         android:textSize="@dimen/h3" />
 
@@ -215,6 +230,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="24-11-2000"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -229,7 +245,9 @@
                         android:id="@+id/textView15"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/gender"
                         android:textSize="@dimen/h3" />
 
@@ -238,6 +256,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="Male"
                         android:textSize="@dimen/h3" />
 
@@ -254,7 +273,9 @@
                         android:id="@+id/textView16"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/email"
                         android:textColor="@color/black"
                         android:textSize="@dimen/h3" />
@@ -265,11 +286,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5sp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_all_round"
+                        android:background="@drawable/white_all_round_blue_border"
                         android:elevation="2sp"
                         android:hint="@string/enter_your_email"
                         android:inputType="textEmailAddress"
-                        android:padding="5sp"
+                        android:padding="15sp"
                         android:selectAllOnFocus="false"
                         android:textAlignment="center" />
                 </TableRow>
@@ -285,7 +306,9 @@
                         android:id="@+id/textView17"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/mobile"
                         android:textColor="@color/black"
                         android:textSize="@dimen/h3" />
@@ -296,11 +319,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5sp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_all_round"
+                        android:background="@drawable/white_all_round_blue_border"
                         android:elevation="2sp"
                         android:hint="@string/enter_your_mobile"
                         android:inputType="phone"
-                        android:padding="5sp"
+                        android:padding="15sp"
                         android:selectAllOnFocus="false"
                         android:textAlignment="center" />
                 </TableRow>
@@ -316,7 +339,9 @@
                         android:id="@+id/textView18"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/address"
                         android:textColor="@color/black"
                         android:textSize="@dimen/h3" />
@@ -327,11 +352,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5sp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_all_round"
+                        android:background="@drawable/white_all_round_blue_border"
                         android:elevation="2sp"
                         android:hint="@string/enter_your_address"
                         android:inputType="textPostalAddress"
-                        android:padding="5sp"
+                        android:padding="15sp"
                         android:selectAllOnFocus="false"
                         android:textAlignment="center" />
                 </TableRow>
@@ -347,7 +372,9 @@
                         android:id="@+id/textView19"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5sp"
                         android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
                         android:text="@string/password"
                         android:textColor="@color/black"
                         android:textSize="@dimen/h3" />
@@ -358,11 +385,11 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5sp"
                         android:layout_weight="1"
-                        android:background="@drawable/white_all_round"
+                        android:background="@drawable/white_all_round_blue_border"
                         android:elevation="2sp"
                         android:hint="@string/enter_your_password"
                         android:inputType="textPassword"
-                        android:padding="5sp"
+                        android:padding="15sp"
                         android:selectAllOnFocus="false"
                         android:textAlignment="center" />
                 </TableRow>

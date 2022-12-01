@@ -40,6 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="15sp"
+                android:padding="5sp"
                 android:text="View Book"
                 android:textColor="@color/black"
                 android:textSize="@dimen/h1" />
@@ -60,7 +61,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/lms_orange_all_round_white_border"
                 android:paddingLeft="10sp"
+                android:paddingTop="5sp"
                 android:paddingRight="10sp"
+                android:paddingBottom="5sp"
                 android:text="Available"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h5"
@@ -121,6 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:padding="5sp"
                     android:text="Python Programming Book"
                     android:textColor="@color/black"
                     android:textSize="@dimen/h2" />
@@ -151,6 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
+                        android:padding="5sp"
                         android:text="Author"
                         android:textSize="@dimen/h3" />
 
@@ -159,6 +164,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="Ravi Panchal"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -174,6 +180,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
+                        android:padding="5sp"
                         android:text="Publisher"
                         android:textSize="@dimen/h3" />
 
@@ -182,6 +189,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="Code IQ Pvt. Ltd."
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -197,6 +205,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
+                        android:padding="5sp"
                         android:text="Price"
                         android:textSize="@dimen/h3" />
 
@@ -205,6 +214,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="Rs. 150"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -220,6 +230,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
+                        android:padding="5sp"
                         android:text="Date"
                         android:textSize="@dimen/h3" />
 
@@ -228,6 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="11-10-2021"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -243,6 +255,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
+                        android:padding="5sp"
                         android:text="Category"
                         android:textSize="@dimen/h3" />
 
@@ -251,6 +264,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="Python"
                         android:textSize="@dimen/h3" />
                 </TableRow>
@@ -266,6 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
+                        android:padding="5sp"
                         android:text="Recommended By"
                         android:textSize="@dimen/h3" />
 
@@ -274,6 +289,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="5sp"
                         android:text="R V Panchal"
                         android:textSize="@dimen/h3" />
                 </TableRow>

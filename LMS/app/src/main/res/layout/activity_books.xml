@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lms_grey"
     android:orientation="vertical"
     tools:context=".BooksActivity">
 
@@ -47,6 +46,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="5sp"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -54,12 +54,13 @@
                 android:id="@+id/editTextTextPersonName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="4sp"
+                android:layout_margin="5sp"
                 android:layout_weight="1"
                 android:background="@drawable/white_all_round"
                 android:ems="10"
                 android:hint="@string/search_by_book_name"
                 android:inputType="textPersonName"
+                android:padding="5sp"
                 android:textAlignment="center"
                 android:textSize="@dimen/h3" />
 

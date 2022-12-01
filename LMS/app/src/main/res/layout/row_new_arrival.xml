@@ -47,35 +47,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10sp"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvBookTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
             android:text="Python Programming..."
-            android:textColor="@color/black"
             android:textSize="@dimen/h2" />
 
         <TextView
             android:id="@+id/tvBookDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="this is demo book"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
+            android:text="This is demo book"
             android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/tvAuthorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp"
             android:text="Author : Ravi Panchal"
             android:textSize="@dimen/h3" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center_vertical|end"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="5sp"
+            android:paddingBottom="5sp">
 
             <TextView
                 android:id="@+id/tvTeacherName"

@@ -13,7 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="fontFamily">@font/andika</item>
+        <item name="fontFamily">@font/actor</item>
     </style>
     <style name="Theme.splashscreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowBackground">@drawable/background_splashscreen</item>

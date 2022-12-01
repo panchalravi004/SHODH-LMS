@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10sp"
+                android:padding="5sp"
                 android:text="Return Last Date"
                 android:textSize="@dimen/h3" />
 
@@ -40,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="5sp"
                 android:text="11-10-2022"
                 android:textSize="@dimen/h3" />
         </TableRow>
@@ -55,6 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10sp"
+                android:padding="5sp"
                 android:text="Lost Charges"
                 android:textSize="@dimen/h3" />
 
@@ -63,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="5sp"
                 android:text="Rs. 300"
                 android:textSize="@dimen/h3" />
         </TableRow>
@@ -78,6 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10sp"
+                android:padding="5sp"
                 android:text="Late Fee"
                 android:textSize="@dimen/h3" />
 
@@ -86,6 +91,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="5sp"
                 android:text="Rs. 100"
                 android:textSize="@dimen/h3" />
         </TableRow>

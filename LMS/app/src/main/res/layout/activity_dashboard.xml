@@ -48,8 +48,8 @@
                     android:textSize="@dimen/h1" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="30sp"
-                    android:layout_height="30sp">
+                    android:layout_width="35sp"
+                    android:layout_height="35sp">
 
                     <ImageButton
                         android:id="@+id/btnNotification"
@@ -61,16 +61,16 @@
 
                     <TextView
                         android:id="@+id/tvNotificationCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="20sp"
+                        android:layout_width="25sp"
+                        android:layout_height="25sp"
                         android:background="@drawable/lms_orange_all_round_black_border"
                         android:gravity="center"
                         android:paddingLeft="5sp"
                         android:paddingRight="5sp"
-                        android:text="3"
+                        android:text="10"
                         android:textAlignment="center"
                         android:textColor="@color/white"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/h4"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
 
@@ -84,6 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15sp"
             android:text="New Arrival"
+            android:textColor="@color/lms_grey_150"
             android:textSize="@dimen/h2" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -112,8 +113,10 @@
                 android:layout_marginLeft="5sp"
                 android:layout_weight="1"
                 android:background="@drawable/white_all_round"
+                android:padding="2sp"
                 android:text="@string/myBooks"
                 android:textAlignment="center"
+                android:textColor="@color/lms_grey_150"
                 android:textSize="@dimen/h2" />
 
             <TextView

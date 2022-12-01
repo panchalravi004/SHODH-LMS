@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="5sp"
             android:text="Technical Issue"
             android:textColor="@color/black"
             android:textSize="@dimen/h3" />
@@ -39,12 +40,14 @@
         android:id="@+id/tvMsgUserMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5sp"
         android:text="I face some technical issue while using your android application please help" />
 
     <TextView
         android:id="@+id/tvMsgReplyTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5sp"
         android:text="Reply:"
         android:textColor="@color/black"
         android:textSize="@dimen/h3"
@@ -54,6 +57,7 @@
         android:id="@+id/tvMsgReplyMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5sp"
         android:text="Sorry for that, we are working on your issue, we are fix this issue as soon as possible, Thank you."
         android:visibility="gone" />
 
