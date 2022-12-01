@@ -55,21 +55,21 @@
             android:layout_height="wrap_content"
             android:text="Python Programming..."
             android:textColor="@color/black"
-            android:textSize="18sp" />
+            android:textSize="@dimen/h2" />
 
         <TextView
             android:id="@+id/tvBookDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="this is demo book"
-            android:textSize="16sp" />
+            android:textSize="@dimen/h3" />
 
         <TextView
             android:id="@+id/tvAuthorName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Author : Ravi Panchal"
-            android:textSize="16sp" />
+            android:textSize="@dimen/h3" />
 
         <LinearLayout
             android:layout_width="match_parent"

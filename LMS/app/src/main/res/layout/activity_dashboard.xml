@@ -45,7 +45,7 @@
                     android:layout_weight="1"
                     android:text="@string/dashboard_title"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/page_title" />
+                    android:textSize="@dimen/h1" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="30sp"
@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="15sp"
             android:text="New Arrival"
-            android:textSize="15sp" />
+            android:textSize="@dimen/h2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/newArrivalSlider"
@@ -112,9 +112,9 @@
                 android:layout_marginLeft="5sp"
                 android:layout_weight="1"
                 android:background="@drawable/white_all_round"
-                android:text="My Books"
+                android:text="@string/myBooks"
                 android:textAlignment="center"
-                android:textSize="15sp" />
+                android:textSize="@dimen/h2" />
 
             <TextView
                 android:id="@+id/tvMyBooksCount"
@@ -124,7 +124,7 @@
                 android:text="25"
                 android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="18sp" />
+                android:textSize="@dimen/h2" />
 
             <ImageButton
                 android:id="@+id/btnGetBookList"

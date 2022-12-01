@@ -25,7 +25,7 @@
             android:text="New Message"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:textSize="@dimen/h2" />
 
         <ImageButton
             android:id="@+id/btnNewMsgClose"
@@ -48,7 +48,7 @@
             android:layout_margin="5sp"
             android:text="Subject"
             android:textColor="@color/lms_grey_150"
-            android:textSize="18sp" />
+            android:textSize="@dimen/h2" />
 
         <EditText
             android:id="@+id/etNewMsgSubject"
@@ -59,7 +59,7 @@
             android:background="@drawable/white_all_round_blue_border"
             android:elevation="2sp"
             android:ems="10"
-            android:hint="Enter Your Subject"
+            android:hint="@string/enter_your_subject"
             android:inputType="textPersonName"
             android:padding="10sp"
             android:textAlignment="center"
@@ -73,7 +73,7 @@
             android:layout_margin="5sp"
             android:text="Message"
             android:textColor="@color/lms_grey_150"
-            android:textSize="18sp" />
+            android:textSize="@dimen/h2" />
 
         <EditText
             android:id="@+id/etNewMsgMessage"
@@ -85,7 +85,7 @@
             android:elevation="2sp"
             android:ems="10"
             android:gravity="start|top"
-            android:hint="Enter Your Message"
+            android:hint="@string/enter_your_message"
             android:inputType="textMultiLine"
             android:lineSpacingExtra="14sp"
             android:maxLines="5"

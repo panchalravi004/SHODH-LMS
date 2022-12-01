@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="Python Programming ..."
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/h3" />
 
         <LinearLayout
             android:layout_width="match_parent"

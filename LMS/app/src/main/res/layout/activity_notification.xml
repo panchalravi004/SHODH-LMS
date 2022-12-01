@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="@string/notifications"
                 android:textColor="@color/white"
-                android:textSize="@dimen/page_title" />
+                android:textSize="@dimen/h1" />
 
         </LinearLayout>
     </LinearLayout>

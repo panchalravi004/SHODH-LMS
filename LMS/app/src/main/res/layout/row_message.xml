@@ -26,7 +26,7 @@
             android:layout_weight="1"
             android:text="Technical Issue"
             android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/h3" />
 
         <ImageButton
             android:id="@+id/btnMsgOpenMore"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:text="Reply:"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/h3"
         android:visibility="gone" />
 
     <TextView

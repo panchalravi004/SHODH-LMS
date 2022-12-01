@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:text="Books List"
                 android:textColor="@color/white"
-                android:textSize="@dimen/page_title" />
+                android:textSize="@dimen/h1" />
 
         </LinearLayout>
 
@@ -58,10 +58,10 @@
                 android:layout_weight="1"
                 android:background="@drawable/white_all_round"
                 android:ems="10"
-                android:hint="search by book name"
+                android:hint="@string/search_by_book_name"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
-                android:textSize="16sp" />
+                android:textSize="@dimen/h3" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
@@ -84,18 +84,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/lms_blue"
-            android:text="Filter"
+            android:text="@string/filter"
             android:textSize="12sp"
             app:cornerRadius="20sp" />
+
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="10sp"
+            android:text="Recomended By"
+            android:textAlignment="viewEnd"
+            android:textSize="@dimen/h3" />
 
         <Switch
             android:id="@+id/switch1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:fontFamily="@font/andika"
-            android:text="Recomended By"
-            android:textAlignment="viewEnd" />
+            android:fontFamily="@font/andika" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:text="Ravi Panchal"
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="@dimen/h1" />
 
             <TextView
                 android:id="@+id/textView7"

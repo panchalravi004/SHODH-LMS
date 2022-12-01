@@ -19,11 +19,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/btnGoToBack"
-            android:layout_width="120sp"
+            android:layout_width="145sp"
             android:layout_height="wrap_content"
             android:background="@drawable/white_all_round"
             android:onClick="goToBack"
-            app:cardCornerRadius="15sp"
+            app:cardCornerRadius="35sp"
             app:layout_constraintStart_toStartOf="@+id/profile_header_view">
 
             <ImageView
@@ -41,7 +41,8 @@
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="15sp"
                 android:text="View Book"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/h1" />
 
         </androidx.cardview.widget.CardView>
 
@@ -62,7 +63,7 @@
                 android:paddingRight="10sp"
                 android:text="Available"
                 android:textColor="@color/white"
-                android:textSize="12sp"
+                android:textSize="@dimen/h5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -122,7 +123,7 @@
                     android:layout_weight="1"
                     android:text="Python Programming Book"
                     android:textColor="@color/black"
-                    android:textSize="18sp" />
+                    android:textSize="@dimen/h2" />
 
                 <ImageButton
                     android:id="@+id/btnOpenBottomDialog"
@@ -151,7 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
                         android:text="Author"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -159,7 +160,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Ravi Panchal"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
                 </TableRow>
 
                 <TableRow
@@ -174,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
                         android:text="Publisher"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -182,7 +183,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Code IQ Pvt. Ltd."
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
                 </TableRow>
 
                 <TableRow
@@ -197,7 +198,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
                         android:text="Price"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -205,7 +206,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Rs. 150"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
                 </TableRow>
 
                 <TableRow
@@ -220,7 +221,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
                         android:text="Date"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -228,7 +229,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="11-10-2021"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
                 </TableRow>
 
                 <TableRow
@@ -243,7 +244,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
                         android:text="Category"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -251,7 +252,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="Python"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
                 </TableRow>
 
                 <TableRow
@@ -266,7 +267,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10sp"
                         android:text="Recommended By"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
 
                     <TextView
                         android:id="@+id/textView24"
@@ -274,7 +275,7 @@
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="R V Panchal"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/h3" />
                 </TableRow>
 
             </TableLayout>
