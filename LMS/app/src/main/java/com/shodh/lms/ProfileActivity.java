@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etUserPassword);
         btnUpdate = (Button) findViewById(R.id.btnUpdateProfile);
         pd = new ProgressDialog(this);
-        
+
         //-----------------Listener----------------------
 
         //set set Profile Animation

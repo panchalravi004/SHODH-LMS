@@ -95,6 +95,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.profile:
                 startActivity(new Intent(this,ProfileActivity.class));
                 break;
+            case R.id.notification:
+                startActivity(new Intent(this,NotificationActivity.class));
+                break;
         }
 
         Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
