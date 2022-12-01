@@ -95,6 +95,16 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.profile:
                 startActivity(new Intent(this,ProfileActivity.class));
                 break;
+            case R.id.ebooks:
+                Intent i = new Intent(this,BooksActivity.class);
+                i.putExtra("DATA","EBOOKS");
+                startActivity(i);
+                break;
+            case R.id.books:
+                Intent ibooks = new Intent(this,BooksActivity.class);
+                ibooks.putExtra("DATA","BOOKS");
+                startActivity(ibooks);
+                break;
             case R.id.notification:
                 startActivity(new Intent(this,NotificationActivity.class));
                 break;

@@ -10,17 +10,16 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.ViewHolder> {
+public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
     Context context;
-    public NotificationAdapter(Context context){
+    public BooksAdapter(Context context){
         this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_notification,parent,false);
-
+        View view = LayoutInflater.from(context).inflate(R.layout.row_new_arrival,parent,false);
         return new ViewHolder(view);
     }
 
@@ -37,17 +36,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return 15;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
         }
