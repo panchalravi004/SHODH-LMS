@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="right"
+    android:layout_marginLeft="20sp"
+    android:layout_marginTop="35sp"
+    android:layout_marginRight="25sp"
+    android:layout_marginBottom="5sp"
+    android:background="@drawable/white_tl_bl_br_round"
+    android:elevation="4sp"
+    android:orientation="vertical"
+    android:padding="5sp">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewNewNotification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="5sp">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Mark as read"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/lms_blue" />
+    </LinearLayout>
+
+</LinearLayout>

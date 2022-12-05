@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5sp"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="10sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="10sp"
     android:animateLayoutChanges="true"
     android:background="@drawable/white_all_round"
     android:elevation="2sp"
@@ -16,7 +19,7 @@
         app:cardCornerRadius="65sp">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imgBook"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@drawable/demo_book" />
@@ -28,7 +31,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/tvBookTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5sp"
@@ -43,7 +46,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/tvNotificationMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -52,14 +55,14 @@
                 android:textSize="14sp" />
 
             <ImageButton
-                android:id="@+id/imageButton"
+                android:id="@+id/btnCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/lms_green_all_round"
-                app:srcCompat="@drawable/icon_check" />
+                android:background="@color/white"
+                app:srcCompat="@drawable/icon_check_green" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btnMarkAsRead"
                 android:layout_width="wrap_content"
                 android:layout_height="35sp"
                 android:backgroundTint="@color/lms_green"
