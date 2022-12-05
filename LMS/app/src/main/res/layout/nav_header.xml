@@ -24,12 +24,20 @@
             android:layout_height="50sp"
             app:cardCornerRadius="45sp">
 
-            <ImageView
-                android:id="@+id/imgUserProfileNavHeader"
+            <androidx.cardview.widget.CardView
                 android:layout_width="45sp"
                 android:layout_height="45sp"
                 android:layout_gravity="center"
-                app:srcCompat="@drawable/demo_profile" />
+                app:cardCornerRadius="45sp">
+
+                <ImageView
+                    android:id="@+id/imgUserProfileNavHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/demo_profile" />
+            </androidx.cardview.widget.CardView>
+
         </androidx.cardview.widget.CardView>
 
         <LinearLayout

@@ -78,6 +78,87 @@
             </LinearLayout>
         </LinearLayout>
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15sp"
+            android:layout_marginTop="15sp"
+            android:layout_marginRight="15sp"
+            android:background="@drawable/lms_grey_50_all_round"
+            android:gravity="center"
+            android:padding="5sp">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150sp"
+                android:layout_height="70sp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="15sp"
+                android:layout_marginTop="15sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginBottom="15sp"
+                app:cardCornerRadius="15sp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@drawable/lms_orange_top_round"
+                    android:padding="2sp"
+                    android:text="Books"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h2" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:padding="12sp"
+                    android:text="15"
+                    android:textAlignment="center"
+                    android:textColor="@color/lms_grey_150"
+                    android:textSize="@dimen/h3" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="150sp"
+                android:layout_height="70sp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="41dp"
+                android:layout_marginTop="15sp"
+                android:layout_marginEnd="15sp"
+                android:layout_marginBottom="15sp"
+                app:cardCornerRadius="15sp">
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:background="@drawable/lms_blue_top_round"
+                    android:padding="2sp"
+                    android:text="E-Books"
+                    android:textAlignment="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h2" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:gravity="center"
+                    android:padding="12sp"
+                    android:text="15"
+                    android:textAlignment="center"
+                    android:textColor="@color/lms_grey_150"
+                    android:textSize="@dimen/h3" />
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/textView8"
             android:layout_width="match_parent"

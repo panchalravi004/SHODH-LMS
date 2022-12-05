@@ -1,5 +1,6 @@
 package com.shodh.lms;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -7,6 +8,8 @@ import androidx.cardview.widget.CardView;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -21,7 +24,22 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -36,6 +54,9 @@ public class ProfileActivity extends AppCompatActivity {
     private Button btnUpdate;
 
     private ProgressDialog pd;
+    private RequestQueue requestQueue;
+    private SharedPreferences user;
+    private SharedPreferences.Editor userEditor;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @SuppressLint("MissingInflatedId")
@@ -63,11 +84,46 @@ public class ProfileActivity extends AppCompatActivity {
         etPassword = (EditText) findViewById(R.id.etUserPassword);
         btnUpdate = (Button) findViewById(R.id.btnUpdateProfile);
         pd = new ProgressDialog(this);
-
+        requestQueue = Volley.newRequestQueue(this);
+        user = getSharedPreferences("USER",MODE_PRIVATE);
+        userEditor = user.edit();
         //-----------------Listener----------------------
 
         //set set Profile Animation
         setProfileAnimation();
+        setProfileData();
+    }
+
+    private void setProfileData(){
+        tvUserName.setText(user.getString("fname","fname").toUpperCase()+" "+user.getString("mname","mname").toUpperCase()+" "+user.getString("lname","lname").toUpperCase());
+        tvEnrollNo.setText(user.getString("enroll","enroll"));
+        tvCollege.setText(user.getString("college","college").toUpperCase());
+        tvCourse.setText(user.getString("course","course").toUpperCase());
+        tvSemester.setText(user.getString("sem","sem"));
+        tvDob.setText(user.getString("DOB","DOB"));
+        tvGender.setText(user.getString("gender","gender"));
+        etEmail.setText(user.getString("email","email"));
+        etMobile.setText(user.getString("mo","mo"));
+        etAddress.setText(user.getString("address","address"));
+        etPassword.setText(user.getString("password","password"));
+
+//        if(!user.getString("image","image").equals("")){
+//            imgUserProfile.setImageBitmap(ImageConvert.getStringBitmap(user.getString("image","image")));
+//        }
+        ImageRequest imageRequest = new ImageRequest(
+                Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"), new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                imgUserProfile.setImageBitmap(response);
+            }
+        }, 100, 100, null, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.i(TAG, "onErrorResponse: "+error.getMessage());
+            }
+        });
+
+        requestQueue.add(imageRequest);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -142,7 +198,62 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void updateProfile(View view) {
         if(validate()){
+            String email = etEmail.getText().toString();
+            String mobile = etMobile.getText().toString();
+            String pwd = etPassword.getText().toString();
+            String address = etAddress.getText().toString();
+
             //do update activity here
+            StringRequest stringRequest = new StringRequest(
+                Request.Method.PUT,
+                Constants.STUDENT_PROFILE_UPDATE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject.has("message")){
+                                userEditor.putString("address",address);
+                                userEditor.putString("mo",mobile);
+                                userEditor.putString("email",email);
+                                userEditor.putString("password",pwd);
+                                userEditor.apply();
+                                Toast.makeText(ProfileActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error);
+                    }
+                }){
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> param = new HashMap<String,String>();
+                    param.put("address",address);
+                    param.put("mo",mobile);
+                    param.put("password",pwd);
+                    param.put("email",email);
+                    return param;
+                }
+
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    String bearer = user.getString("token_type","token_type")+" "+user.getString("access_token","access_token");
+                    Map<String, String> headersSys = super.getHeaders();
+                    Map<String, String> headers = new HashMap<String, String>();
+                    headersSys.remove("Authorization");
+                    headers.put("Authorization", bearer);
+                    headers.putAll(headersSys);
+                    return headers;
+                }
+            };
+            requestQueue.add(stringRequest);
         }
     }
 
@@ -159,9 +270,22 @@ public class ProfileActivity extends AppCompatActivity {
         if(mobile.equals("")){
             Toast.makeText(this, "Enter Your Mobile", Toast.LENGTH_SHORT).show();
             return false;
-        }if(address.equals("")){
+        }
+        if(address.equals("")){
             Toast.makeText(this, "Enter Your Address", Toast.LENGTH_SHORT).show();
             return false;
+        }
+        if(pwd.equals("")){
+            Toast.makeText(this, "Enter Your Password", Toast.LENGTH_SHORT).show();
+            return false;
+        }else{
+            if(pwd.length() < 5){
+                Toast.makeText(this, "Password must be >= 5", Toast.LENGTH_SHORT).show();
+                return false;
+            }else if(pwd.length() > 12){
+                Toast.makeText(this, "Password must be <= 12", Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
         return true;
     }
