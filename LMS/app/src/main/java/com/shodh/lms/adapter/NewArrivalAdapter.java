@@ -1,4 +1,4 @@
-package com.shodh.lms;
+package com.shodh.lms.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.shodh.lms.R;
 
 public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.ViewHolder> {
 
@@ -21,7 +23,7 @@ public class NewArrivalAdapter extends RecyclerView.Adapter<NewArrivalAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_book_card,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_book_card_v2,parent,false);
         return new ViewHolder(view);
     }
 

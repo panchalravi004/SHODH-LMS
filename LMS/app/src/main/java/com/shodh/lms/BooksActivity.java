@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.view.View;
 
+import com.shodh.lms.adapter.BooksAdapter;
+
 public class BooksActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

@@ -15,6 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.shodh.lms.adapter.MessageAdapter;
+
 public class MessageActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;

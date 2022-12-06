@@ -197,6 +197,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void updateProfile(View view) {
+        pd.setMessage("Updating...");
+        pd.show();
         if(validate()){
             String email = etEmail.getText().toString();
             String mobile = etMobile.getText().toString();
@@ -211,6 +213,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse: "+response);
+                        pd.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response);
                             if(jsonObject.has("message")){
@@ -230,6 +233,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(TAG, "onErrorResponse: "+error);
+                        pd.dismiss();
                     }
                 }){
                 @Override

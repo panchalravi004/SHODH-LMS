@@ -1,4 +1,4 @@
-package com.shodh.lms;
+package com.shodh.lms.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.animation.AnimationUtils;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.shodh.lms.R;
+import com.shodh.lms.ViewBookActivity;
+
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> {
     Context context;
     public BooksAdapter(Context context){
@@ -20,7 +23,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.row_book_card,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.row_book_card_v2,parent,false);
         return new ViewHolder(view);
     }
 
@@ -33,7 +36,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.ViewHolder> 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.startActivity(new Intent(context,ViewBookActivity.class));
+                context.startActivity(new Intent(context, ViewBookActivity.class));
             }
         });
 
