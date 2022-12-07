@@ -12,13 +12,16 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
+import android.transition.TransitionManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -138,15 +141,15 @@ public class ProfileActivity extends AppCompatActivity {
                 ValueAnimator anim;
                 if(i1 > 10){
 
-                    tvUserName.animate().translationX(-250f).translationY(60f)
+                    tvUserName.animate().translationX(-190f).translationY(20f)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(70);
 
-                    cardViewUserProfile.animate().translationX(450f).translationY(-35f).scaleX(1.2f).scaleY(1.2f)
+                    cardViewUserProfile.animate().translationX(450f).translationY(-25f).scaleX(1.2f).scaleY(1.2f)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(70);
 
-                    btnGoToBack.animate().translationX(-40f).translationY(20f)
+                    btnGoToBack.animate().translationX(-40f)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(70);
 
@@ -160,6 +163,7 @@ public class ProfileActivity extends AppCompatActivity {
                             profileHeaderView.setLayoutParams(layoutParams);
                         }
                     });
+
                 }else{
                     tvUserName.animate().translationX(0).translationY(0)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
@@ -169,9 +173,13 @@ public class ProfileActivity extends AppCompatActivity {
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(150);
 
-                    btnGoToBack.animate().translationX(0).translationY(0)
+                    btnGoToBack.animate().translationX(0)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(150);
+
+                    FrameLayout.LayoutParams llm = (FrameLayout.LayoutParams) cardViewUserProfile.getLayoutParams();
+                    llm.gravity = Gravity.LEFT|Gravity.BOTTOM;
+                    cardViewUserProfile.setLayoutParams(llm);
 
                     anim = ValueAnimator.ofInt(profileHeaderView.getMeasuredHeight(), 240);
                     anim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
