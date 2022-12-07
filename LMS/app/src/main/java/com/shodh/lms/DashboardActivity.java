@@ -39,9 +39,8 @@ import com.android.volley.toolbox.Volley;
 import com.google.android.material.navigation.NavigationView;
 import com.shodh.lms.adapter.NewArrivalAdapter;
 import com.shodh.lms.adapter.NewNotificationAdapter;
-import com.shodh.lms.adapter.NotificationAdapter;
+import com.shodh.lms.request.CacheRequest;
 import com.shodh.lms.viewmodel.NewNotificationLiveViewModel;
-import com.shodh.lms.viewmodel.NotificationLiveViewModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -120,6 +119,31 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         fetchNotification();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        newNotificationLiveViewModel.makeApiCall(this,user);
+    }
+
+    private void fetchNotification(){
+
+        newNotificationAdapter = new NewNotificationAdapter(DashboardActivity.this,notification);
+
+        newNotificationLiveViewModel = new NewNotificationLiveViewModel();
+        newNotificationLiveViewModel.getNotification().observe(this, new Observer<JSONArray>() {
+            @Override
+            public void onChanged(JSONArray jsonArray) {
+                if(jsonArray != null){
+                    notification = jsonArray;
+                    tvNotificationCount.setText(String.valueOf(jsonArray.length()));
+                    newNotificationAdapter.updateNotification(jsonArray);
+                }
+            }
+        });
+
+        newNotificationLiveViewModel.makeApiCall(this,user);
+    }
+
     private void setNavHeader(){
         tvUserName = navigationView.getHeaderView(0).findViewById(R.id.tvUserNameNavHeader);
         tvUserEmail = navigationView.getHeaderView(0).findViewById(R.id.tvUserEmailNavHeader);
@@ -150,27 +174,27 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     private void setDashboardData(){
         CacheRequest cacheRequest = new CacheRequest(
-            Request.Method.GET,
-            Constants.GET_DASHBOARD_COUNT,
-            new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    Log.i(TAG, "onResponse: "+response);
-                    try {
-                        JSONObject jsonObject = new JSONObject(response).getJSONObject("dashboard_data");
-                        tvTotalBookCount.setText(jsonObject.getString("total_books"));
-                        tvTotalEBookCount.setText(jsonObject.getString("total_ebooks"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                Request.Method.GET,
+                Constants.GET_DASHBOARD_COUNT,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+                        try {
+                            JSONObject jsonObject = new JSONObject(response).getJSONObject("dashboard_data");
+                            tvTotalBookCount.setText(jsonObject.getString("total_books"));
+                            tvTotalEBookCount.setText(jsonObject.getString("total_ebooks"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            },
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: "+error.getMessage());
-                }
-            }){
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error.getMessage());
+                    }
+                }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 String bearer = user.getString("token_type","token_type")+" "+user.getString("access_token","access_token");
@@ -183,25 +207,6 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             }
         };
         requestQueue.add(cacheRequest);
-    }
-
-    private void fetchNotification(){
-
-        newNotificationAdapter = new NewNotificationAdapter(DashboardActivity.this,notification);
-
-        newNotificationLiveViewModel = new NewNotificationLiveViewModel();
-        newNotificationLiveViewModel.getNotification().observe(this, new Observer<JSONArray>() {
-            @Override
-            public void onChanged(JSONArray jsonArray) {
-                if(jsonArray != null){
-                    notification = jsonArray;
-                    tvNotificationCount.setText(String.valueOf(jsonArray.length()));
-                    newNotificationAdapter.updateNotification(jsonArray);
-                }
-            }
-        });
-
-        newNotificationLiveViewModel.makeApiCall(this,user);
     }
 
     private void openNewNotificationDialog() {
@@ -298,12 +303,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.ebooks:
                 Intent i = new Intent(this,BooksActivity.class);
-                i.putExtra("DATA","EBOOKS");
+                i.putExtra("BOOK_TYPE","EBOOKS");
                 startActivity(i);
                 break;
             case R.id.books:
                 Intent ibooks = new Intent(this,BooksActivity.class);
-                ibooks.putExtra("DATA","BOOKS");
+                ibooks.putExtra("BOOK_TYPE","BOOKS");
                 startActivity(ibooks);
                 break;
             case R.id.notification:

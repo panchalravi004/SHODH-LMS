@@ -105,7 +105,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/btnLostBook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
@@ -115,7 +115,7 @@
             app:cornerRadius="20sp" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/btnPayFee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
@@ -125,7 +125,7 @@
             app:cornerRadius="20sp" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/btnNotify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10sp"
