@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BooksActivity">
+    tools:context=".MyBookActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
                 android:layout_weight="1"
-                android:text="Books List"
+                android:text="@string/myBooks"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h1" />
 
@@ -75,49 +75,41 @@
     </LinearLayout>
 
     <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10sp">
-
-            <Button
-                android:id="@+id/btnFilter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/lms_blue"
-                android:text="@string/filter"
-                android:textSize="12sp"
-                app:cornerRadius="20sp" />
-
-            <TextView
-                android:id="@+id/textView28"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:paddingRight="10sp"
-                android:text="Recommended By"
-                android:textAlignment="viewEnd"
-                android:textSize="@dimen/h3" />
-
-            <Switch
-                android:id="@+id/switchRecommended"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/andika" />
-        </LinearLayout>
-
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10sp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewBooksList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="15sp"
-            android:paddingRight="15sp" />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <Button
+            android:id="@+id/btnFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/lms_blue"
+            android:text="@string/filter"
+            android:textSize="12sp"
+            app:cornerRadius="20sp" />
 
+        <TextView
+            android:id="@+id/textView28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingRight="10sp"
+            android:text="Recommended By"
+            android:textAlignment="viewEnd"
+            android:textSize="@dimen/h3" />
 
+        <Switch
+            android:id="@+id/switchRecommended"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/andika" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleViewMyBooksList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp" />
 </LinearLayout>

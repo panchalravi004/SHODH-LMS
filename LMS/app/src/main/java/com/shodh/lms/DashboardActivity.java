@@ -312,6 +312,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 ibooks.putExtra("BOOK_TYPE","BOOKS");
                 startActivity(ibooks);
                 break;
+            case R.id.myBooks:
+                startActivity(new Intent(this,MyBookActivity.class));
+                break;
             case R.id.notification:
                 startActivity(new Intent(this,NotificationActivity.class));
                 break;

@@ -5,6 +5,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
@@ -36,6 +37,7 @@ public class NotificationActivity extends AppCompatActivity {
     private static final String TAG = "LMS_TEST";
     private Button btnClearAll;
     private ProgressDialog pd;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
@@ -54,6 +56,7 @@ public class NotificationActivity extends AppCompatActivity {
         //-------------------Hooks--------------------------
         btnClearAll = (Button) findViewById(R.id.btnClearAll);
         recyclerView = (RecyclerView) findViewById(R.id.recycleViewNotification);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         pd = new ProgressDialog(this);
         user = getSharedPreferences("USER",MODE_PRIVATE);
         requestQueue = Volley.newRequestQueue(this);
@@ -64,6 +67,13 @@ public class NotificationActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 clearAllNotification();
+            }
+        });
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                notificationLiveViewModel.makeApiCall(NotificationActivity.this,user);
             }
         });
         setNotificationRecycleView();
@@ -119,6 +129,7 @@ public class NotificationActivity extends AppCompatActivity {
                 if(jsonArray != null){
                     notification = jsonArray;
                     notificationAdapter.updateNotification(jsonArray);
+                    swipeRefreshLayout.setRefreshing(false);
                 }
             }
         });

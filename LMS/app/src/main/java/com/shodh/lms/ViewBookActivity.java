@@ -32,6 +32,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.razorpay.Checkout;
+import com.razorpay.PaymentResultListener;
 import com.shodh.lms.request.CacheRequest;
 import com.shodh.lms.request.FileRequest;
 
@@ -47,7 +49,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ViewBookActivity extends AppCompatActivity {
+public class ViewBookActivity extends AppCompatActivity implements PaymentResultListener {
 
     private static final String TAG = "LMS_TEST";
     private RequestQueue requestQueue;
@@ -59,11 +61,15 @@ public class ViewBookActivity extends AppCompatActivity {
     private ProgressDialog pd;
     private JSONObject book_detail;
 
+    private String PAYMENT_ACTION = null;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_book_v2);
+        Checkout.preload(getApplicationContext());
+
         //----------------hooks------------------
         intent = getIntent();
         requestQueue = Volley.newRequestQueue(this);
@@ -328,10 +334,29 @@ public class ViewBookActivity extends AppCompatActivity {
             }
         }
 
+        //on click send notification
         btnNotify.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 setNotification();
+            }
+        });
+
+        //on click pay lost book payment and late fee if applicable
+        btnLostBook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PAYMENT_ACTION = "LOST_BOOK";
+                payBookPayment();
+            }
+        });
+
+        //onclick pay late fee
+        btnPayFee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PAYMENT_ACTION = "LATE_FEE";
+                payBookPayment();
             }
         });
 
@@ -341,6 +366,53 @@ public class ViewBookActivity extends AppCompatActivity {
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().getAttributes().windowAnimations = R.style.BottomDialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+    }
+
+    private void payBookPayment() {
+        /**
+         * ID = rzp_test_xw4gglzg9XYJrG
+         * SECRET = wvkbDaQg9KEomkeXwfyfdRVh
+         */
+
+        Checkout checkout = new Checkout();
+        checkout.setKeyID("rzp_test_xw4gglzg9XYJrG");
+
+        checkout.setImage(R.drawable.logo);
+        final Activity activity = this;
+
+        try {
+            JSONObject options = new JSONObject();
+
+            options.put("key", "rzp_test_xw4gglzg9XYJrG");
+            options.put("name", "Library Management System");
+//            options.put("description", "Reference No. #123456");
+//            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
+//            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
+            options.put("theme.color", "#FFA200");
+            options.put("currency", "INR");
+            options.put("amount", "1000");//pass amount in currency subunits
+            options.put("prefill.email", "ravi@example.com");
+            options.put("prefill.contact","9988776655");
+//            JSONObject retryObj = new JSONObject();
+//            retryObj.put("enabled", true);
+//            retryObj.put("max_count", 4);
+//            options.put("retry", retryObj);
+
+            checkout.open(activity, options);
+
+        } catch(Exception e) {
+            Log.e(TAG, "Error in starting Razorpay Checkout", e);
+        }
+    }
+
+    @Override
+    public void onPaymentSuccess(String s) {
+        Log.i(TAG, "onPaymentSuccess: "+s);
+    }
+
+    @Override
+    public void onPaymentError(int i, String s) {
+        Log.i(TAG, "onPaymentError: "+s+" "+i);
     }
 
     public void goToBack(View view) {

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="5sp"
+    android:layout_marginTop="10sp"
+    android:layout_marginRight="5sp"
+    android:layout_marginBottom="10sp"
+    android:background="@drawable/white_all_round"
+    android:elevation="4sp"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="15sp"
+        app:cardElevation="0dp"
+        app:cardMaxElevation="0dp">
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_gravity="right"
+            android:background="@drawable/lms_orange_circle"
+            android:scaleX="3"
+            android:scaleY="3"
+            android:translationX="-5sp"
+            android:translationY="-20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10sp">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="2sp"
+                android:text="Python Programming Books"
+                android:textSize="@dimen/h3" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="2sp"
+                    android:text="Issue Date : 12-122-2022"
+                    android:textSize="@dimen/h4" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp"
+                    android:background="@drawable/lms_orange_all_round_white_border"
+                    android:paddingLeft="8sp"
+                    android:paddingTop="4sp"
+                    android:paddingRight="8sp"
+                    android:paddingBottom="4sp"
+                    android:text="3 Days Left"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/h4" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>
