@@ -157,18 +157,19 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 //        }
 
         ImageRequest imageRequest = new ImageRequest(
-                Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"), new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                imgUserProfile.setImageBitmap(response);
-            }
-        }, 100, 100, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "onErrorResponse: "+error.getMessage());
+            Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"),
+            new Response.Listener<Bitmap>() {
+                @Override
+                public void onResponse(Bitmap response) {
+                    imgUserProfile.setImageBitmap(response);
+                }
+            }, 100, 100, null,
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.i(TAG, "onErrorResponse: "+error.getMessage());
             }
         });
-
         requestQueue.add(imageRequest);
     }
 

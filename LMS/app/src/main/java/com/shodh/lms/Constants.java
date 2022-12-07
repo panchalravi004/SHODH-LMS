@@ -22,5 +22,7 @@ public class Constants {
     public static final String GET_SINGLE_EBOOK = HOST+"/student/ebooks/view/";
 
     public static final String NOTIFY_ME = HOST+"/student/books/notify/";
+    public static final String SEND_NEW_MESSAGE = HOST+"/student/contact";
+
 
 }

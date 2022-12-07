@@ -37,7 +37,7 @@
                 android:textSize="@dimen/h3" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/tvReturnLastDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -62,12 +62,12 @@
                 android:textSize="@dimen/h3" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/tvLostCharges"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="5sp"
-                android:text="Rs. 300"
+                android:text="Rs. 150"
                 android:textSize="@dimen/h3" />
         </TableRow>
 
@@ -87,7 +87,7 @@
                 android:textSize="@dimen/h3" />
 
             <TextView
-                android:id="@+id/textView26"
+                android:id="@+id/tvLateFee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

@@ -1,5 +1,6 @@
 package com.shodh.lms;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
@@ -41,6 +42,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -50,7 +53,7 @@ public class ViewBookActivity extends AppCompatActivity {
     private RequestQueue requestQueue;
     private Intent intent;
     private SharedPreferences user;
-    private TextView tvTitle,tvAuthor,tvPublisher,tvPrice,tvDate,tvCategory,tvRecommendedBy,tvBookAvailable;
+    private TextView tvTitle,tvAuthor,tvPublisher,tvPrice,tvDate,tvCategory,tvRecommendedBy,tvBookAvailable,tvReturnLastDate,tvLostCharges,tvLateFee;
     private Button btnLostBook,btnPayFee,btnNotify;
     private ImageButton btnDownloadPdf,btnOpenBottomDialog;
     private ProgressDialog pd;
@@ -252,46 +255,6 @@ public class ViewBookActivity extends AppCompatActivity {
         requestQueue.add(cacheRequest);
     }
 
-    public void openBottomDialog(View view) {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.dialog_view_book_actions);
-//        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_all_round);
-
-        btnLostBook = dialog.findViewById(R.id.btnLostBook);
-        btnPayFee = dialog.findViewById(R.id.btnPayFee);
-        btnNotify = dialog.findViewById(R.id.btnNotify);
-
-        if(intent.getStringExtra("ACTION").equals("VIEW_BOOK")){
-            btnLostBook.setVisibility(View.GONE);
-            btnPayFee.setVisibility(View.GONE);
-        }
-        if(book_detail != null){
-            try {
-                if(book_detail.getInt("quantity")  <= 0){
-                    btnNotify.setVisibility(View.VISIBLE);
-                }else{
-                    btnNotify.setVisibility(View.GONE);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
-        btnNotify.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setNotification();
-            }
-        });
-
-
-        dialog.show();
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.BottomDialogAnimation;
-        dialog.getWindow().setGravity(Gravity.BOTTOM);
-    }
-
     private void setNotification() {
         StringRequest cacheRequest = new StringRequest(
                 Request.Method.GET,
@@ -329,6 +292,55 @@ public class ViewBookActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(cacheRequest);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void openBottomDialog(View view) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_view_book_actions);
+//        dialog.getWindow().setBackgroundDrawableResource(R.drawable.white_all_round);
+
+        btnLostBook = dialog.findViewById(R.id.btnLostBook);
+        btnPayFee = dialog.findViewById(R.id.btnPayFee);
+        btnNotify = dialog.findViewById(R.id.btnNotify);
+
+        tvReturnLastDate = dialog.findViewById(R.id.tvReturnLastDate);
+        tvLostCharges = dialog.findViewById(R.id.tvLostCharges);
+        tvLateFee = dialog.findViewById(R.id.tvLateFee);
+
+        LocalDate date = LocalDate.now();
+
+        if(intent.getStringExtra("ACTION").equals("VIEW_BOOK")){
+            btnLostBook.setVisibility(View.GONE);
+            btnPayFee.setVisibility(View.GONE);
+        }
+        if(book_detail != null){
+            try {
+                tvLostCharges.setText("Rs. "+book_detail.getString("price"));
+                tvReturnLastDate.setText(date.plusDays(15).toString());
+                if(book_detail.getInt("quantity")  <= 0){
+                    btnNotify.setVisibility(View.VISIBLE);
+                }else{
+                    btnNotify.setVisibility(View.GONE);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        btnNotify.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                setNotification();
+            }
+        });
+
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.BottomDialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
     public void goToBack(View view) {
