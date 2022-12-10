@@ -53,7 +53,11 @@ public class NewNotificationAdapter extends RecyclerView.Adapter<NewNotification
 
     @Override
     public int getItemCount() {
-        return notification.length();
+        if(notification != null){
+            return notification.length();
+        }else{
+            return 0;
+        }
     }
 
     @Override

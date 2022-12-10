@@ -26,6 +26,10 @@
         android:title="@string/notifications"
         android:icon="@drawable/icon_bell_ring"/>
     <item
+        android:id="@+id/history"
+        android:title="@string/history"
+        android:icon="@drawable/icon_history"/>
+    <item
         android:id="@+id/faqs"
         android:title="@string/faqs"
         android:icon="@drawable/icon_help"/>

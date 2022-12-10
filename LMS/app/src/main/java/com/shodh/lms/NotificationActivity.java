@@ -48,6 +48,8 @@ public class NotificationActivity extends AppCompatActivity {
     private SharedPreferences user;
     private RequestQueue requestQueue;
 
+    private DialogLoading dialogLoading;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,11 @@ public class NotificationActivity extends AppCompatActivity {
         user = getSharedPreferences("USER",MODE_PRIVATE);
         requestQueue = Volley.newRequestQueue(this);
         notificationLiveViewModel = new NotificationLiveViewModel();
+
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
+
         //---------------------Listener---------------------
 
         btnClearAll.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +137,7 @@ public class NotificationActivity extends AppCompatActivity {
                     notification = jsonArray;
                     notificationAdapter.updateNotification(jsonArray);
                     swipeRefreshLayout.setRefreshing(false);
+                    dialogLoading.dismiss();
                 }
             }
         });

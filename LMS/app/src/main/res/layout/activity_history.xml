@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MyBookActivity">
+    tools:context=".HistoryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,21 +32,14 @@
                 android:onClick="goToBack" />
 
             <TextView
-                android:id="@+id/tvBookActivityTitle"
+                android:id="@+id/tvHistoryActivityTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15sp"
                 android:layout_weight="1"
-                android:text="@string/myBooks"
+                android:text="@string/history"
                 android:textColor="@color/white"
                 android:textSize="@dimen/h1" />
-
-            <ImageButton
-                android:id="@+id/btnMyEbooks"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/icon_file_download"
-                android:onClick="openDownloadedEbookDialog"/>
 
         </LinearLayout>
 
@@ -55,13 +48,13 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleViewMyBooksList"
+            android:id="@+id/recycleViewHistory"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="15sp"
             android:paddingRight="15sp" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 </LinearLayout>
