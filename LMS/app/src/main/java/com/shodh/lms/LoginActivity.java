@@ -198,4 +198,8 @@ public class LoginActivity extends AppCompatActivity {
         }
         return true;
     }
+
+    public void goToCreateAccount(View view) {
+        startActivity(new Intent(this,RegisterActivity.class));
+    }
 }

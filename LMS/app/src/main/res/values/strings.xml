@@ -11,6 +11,9 @@
     <string name="history">History</string>
     <string name="faqs">FAQs</string>
     <string name="logout">Logout</string>
+    <string name="create_account">Create Account</string>
+    <string name="create">Create</string>
+
 
     <!--  All Inputs Strings  -->
     <string name="enter_enrollment_no">Enter Enrollment No</string>
@@ -20,6 +23,10 @@
     <string name="enter_your_mobile">Enter Your Mobile</string>
     <string name="enter_your_subject">Enter Your Subject</string>
     <string name="enter_your_message">Enter Your Message</string>
+    <string name="enter_your_fname">Enter Your First Name</string>
+    <string name="enter_your_mname">Enter Your Middle Name</string>
+    <string name="enter_your_lname">Enter Your Last Name</string>
+    <string name="choose_your_dob">Select Your DOB</string>
 
     <!--  Other Strings  -->
     <string name="no">No</string>
@@ -44,5 +51,35 @@
     <dimen name="h4">14sp</dimen>
     <dimen name="h5">12sp</dimen>
     <dimen name="h6">10sp</dimen>
+
+    <string-array name="gender">
+        <item>select gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="college">
+        <item>select college</item>
+        <item>AMPICS</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="course">
+        <item>select course</item>
+        <item>BCA</item>
+        <item>MCA</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="semester">
+        <item>select semester</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
 
 </resources>

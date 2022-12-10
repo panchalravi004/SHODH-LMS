@@ -1,0 +1,549 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".RegisterActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/lms_grey_100"
+        android:orientation="horizontal"
+        android:paddingLeft="15sp"
+        android:paddingTop="35sp"
+        android:paddingRight="15sp"
+        android:paddingBottom="30sp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnGoToBack"
+            android:layout_width="180sp"
+            android:layout_height="match_parent"
+            android:background="@drawable/white_all_round"
+            android:onClick="goToBack"
+            app:cardCornerRadius="35sp">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="5sp"
+                app:srcCompat="@drawable/icon_left_black_arrow" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="15sp"
+                android:padding="5sp"
+                android:text="@string/create_account"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h1" />
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/btnBackToSectionOne"
+            android:layout_width="100sp"
+            android:layout_height="match_parent"
+            android:background="@drawable/white_all_round"
+            android:onClick="goToSectionOne"
+            android:visibility="gone"
+            app:cardCornerRadius="35sp">
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:layout_marginLeft="5sp"
+                app:srcCompat="@drawable/icon_left_black_arrow" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_marginRight="15sp"
+                android:padding="5sp"
+                android:text="Back"
+                android:textColor="@color/black"
+                android:textSize="@dimen/h1" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="15sp">
+
+            <TableLayout
+                android:id="@+id/tableLayoutRegisterSectionOne"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="Enrollment"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etEnrollmentNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_enrollment_no"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView39"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="First Name"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etFirstName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_fname"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView40"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="Middle Name"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etMiddleName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_mname"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView41"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="Last Name"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etLastName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_lname"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView42"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/email"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etUserEmail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_email"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView43"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/mobile"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etUserMobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_mobile"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btnGoToSectionTwo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/lms_orange"
+                        android:onClick="goToSectionTwo"
+                        android:text="Next"
+                        app:cornerRadius="20sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TableLayout
+                android:id="@+id/tableLayoutRegisterSectionTwo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView44"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/dob"
+                        android:textSize="@dimen/h3" />
+
+                    <TextView
+                        android:id="@+id/tvDob"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:padding="10sp"
+                        android:text="@string/choose_your_dob"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView45"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/gender"
+                        android:textSize="@dimen/h3" />
+
+                    <Spinner
+                        android:id="@+id/spGender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:entries="@array/gender"
+                        android:padding="10sp"
+                        android:spinnerMode="dialog"
+                        android:textAlignment="center" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView46"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/college"
+                        android:textSize="@dimen/h3" />
+
+                    <Spinner
+                        android:id="@+id/spCollege"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:entries="@array/college"
+                        android:padding="10sp"
+                        android:spinnerMode="dialog"
+                        android:textAlignment="center" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView47"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/course"
+                        android:textSize="@dimen/h3" />
+
+                    <Spinner
+                        android:id="@+id/spCourse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:entries="@array/course"
+                        android:padding="10sp"
+                        android:spinnerMode="dialog"
+                        android:textAlignment="center" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/semester"
+                        android:textSize="@dimen/h3" />
+
+                    <Spinner
+                        android:id="@+id/spSemester"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:entries="@array/semester"
+                        android:padding="10sp"
+                        android:spinnerMode="dialog"
+                        android:textAlignment="center" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView49"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/password"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etUserPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_password"
+                        android:inputType="textPersonName"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView50"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5sp"
+                        android:paddingTop="5sp"
+                        android:paddingRight="15sp"
+                        android:paddingBottom="5sp"
+                        android:text="@string/address"
+                        android:textSize="@dimen/h3" />
+
+                    <EditText
+                        android:id="@+id/etUserAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5sp"
+                        android:layout_weight="1"
+                        android:background="@drawable/white_all_round_blue_border"
+                        android:elevation="2sp"
+                        android:hint="@string/enter_your_address"
+                        android:inputType="textMultiLine|textPostalAddress"
+                        android:maxLines="4"
+                        android:minLines="3"
+                        android:padding="10sp"
+                        android:textAlignment="center" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15sp"
+                    android:layout_marginBottom="15sp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btnCreateAccount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/create"
+                        app:cornerRadius="20sp" />
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
