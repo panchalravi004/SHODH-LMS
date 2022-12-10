@@ -61,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                 DatePickerDialog dpd = new DatePickerDialog(RegisterActivity.this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int y, int m, int d) {
-                        tvDob.setText(y+"-"+m+"-"+d);
+                        tvDob.setText(y+"-"+(m+1)+"-"+d);
                     }
                 },2022,12,12);
                 dpd.show();

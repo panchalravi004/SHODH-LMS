@@ -55,10 +55,6 @@ public class BooksActivity extends AppCompatActivity {
         intent = getIntent();
         bookLiveViewModel = new BookLiveViewModel(intent.getStringExtra("BOOK_TYPE"));
 
-        //set loading dialog
-        dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
-
         //----------------------Listener-----------------
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +85,10 @@ public class BooksActivity extends AppCompatActivity {
     }
 
     private void setBooksListRecycleView() {
+
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);

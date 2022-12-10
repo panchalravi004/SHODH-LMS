@@ -64,9 +64,6 @@ public class NotificationActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
         notificationLiveViewModel = new NotificationLiveViewModel();
 
-        //set loading dialog
-        dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
 
         //---------------------Listener---------------------
 
@@ -123,6 +120,10 @@ public class NotificationActivity extends AppCompatActivity {
     }
 
     private void setNotificationRecycleView() {
+
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);

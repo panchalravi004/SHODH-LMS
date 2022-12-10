@@ -37,9 +37,6 @@ public class HistoryActivity extends AppCompatActivity {
         recyclerViewHistory = (RecyclerView) findViewById(R.id.recycleViewHistory);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
 
-        //set loading dialog
-        dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
 
         //------------------Listener--------------------------
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -52,6 +49,10 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void setRecycleViewHistory() {
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
+
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerViewHistory.setLayoutManager(linearLayoutManager);
 

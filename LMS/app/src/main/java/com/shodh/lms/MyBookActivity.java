@@ -64,9 +64,6 @@ public class MyBookActivity extends AppCompatActivity {
         myBookLiveViewModel = new MyBookLiveViewModel();
         context = MyBookActivity.this;
 
-        //set loading dialog
-        dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
 
         //--------------------Listener-------------------------
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -79,6 +76,10 @@ public class MyBookActivity extends AppCompatActivity {
     }
 
     private void setRecycleViewMyBookList() {
+
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerViewMyBookList.setLayoutManager(linearLayoutManager);
