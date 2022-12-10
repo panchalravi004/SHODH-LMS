@@ -24,5 +24,12 @@ public class Constants {
     public static final String NOTIFY_ME = HOST+"/student/books/notify/";
     public static final String SEND_NEW_MESSAGE = HOST+"/student/contact";
 
+    public static final String GET_ALL_ISSUE_BOOK = HOST+"/student/issue-library-record";
+    public static final String GET_SINGLE_ISSUE_BOOK = HOST+"/student/issue-library-record/view/";
+
+    public static final String PAY_BOOK_LATE_FINE = HOST+"/student/issue-library-record/pay-fine";
+    public static final String PAY_BOOK_LOST_FINE = HOST+"/student/library-record/pay-lost-fine";
+
+    public static final String BOOK_HISTORY = HOST+"/student/issue-library-record-history";
 
 }

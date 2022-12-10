@@ -38,6 +38,8 @@ public class BooksActivity extends AppCompatActivity {
     private SharedPreferences user;
     private Intent intent;
 
+    private DialogLoading dialogLoading;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,10 @@ public class BooksActivity extends AppCompatActivity {
         user = getSharedPreferences("USER",MODE_PRIVATE);
         intent = getIntent();
         bookLiveViewModel = new BookLiveViewModel(intent.getStringExtra("BOOK_TYPE"));
+
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
 
         //----------------------Listener-----------------
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +103,7 @@ public class BooksActivity extends AppCompatActivity {
                     books = jsonArray;
                     booksAdapter.updateBooks(jsonArray);
                     swipeRefreshLayout.setRefreshing(false);
+                    dialogLoading.dismiss();
                 }
             }
         });

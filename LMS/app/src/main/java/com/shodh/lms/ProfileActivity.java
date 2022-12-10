@@ -36,6 +36,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -110,23 +111,9 @@ public class ProfileActivity extends AppCompatActivity {
         etAddress.setText(user.getString("address","address"));
         etPassword.setText(user.getString("password","password"));
 
-//        if(!user.getString("image","image").equals("")){
-//            imgUserProfile.setImageBitmap(ImageConvert.getStringBitmap(user.getString("image","image")));
-//        }
-        ImageRequest imageRequest = new ImageRequest(
-                Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"), new Response.Listener<Bitmap>() {
-            @Override
-            public void onResponse(Bitmap response) {
-                imgUserProfile.setImageBitmap(response);
-            }
-        }, 100, 100, null, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.i(TAG, "onErrorResponse: "+error.getMessage());
-            }
-        });
-
-        requestQueue.add(imageRequest);
+        Glide.with(this)
+                .load(Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"))
+                .into(imgUserProfile);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -140,8 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 ValueAnimator anim;
                 if(i1 > 10){
-
-                    tvUserName.animate().translationX(-190f).translationY(20f)
+                    tvUserName.animate().x(20).translationY(20f)
                             .setInterpolator(new AccelerateDecelerateInterpolator())
                             .setDuration(70);
 

@@ -1,5 +1,6 @@
 package com.shodh.lms;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -9,6 +10,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -44,6 +46,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
@@ -59,9 +63,13 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
     private Button btnLostBook,btnPayFee,btnNotify;
     private ImageButton btnDownloadPdf,btnOpenBottomDialog;
     private ProgressDialog pd;
+    private DialogLoading dialogLoading;
     private JSONObject book_detail;
 
+    //payment action and amount
     private String PAYMENT_ACTION = null;
+    private int LOST_BOOK_CHARGES = 0;
+    private int LATE_FEES = 0;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -85,6 +93,8 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         tvRecommendedBy = (TextView) findViewById(R.id.tvRecommendedBy);
         tvBookAvailable = (TextView) findViewById(R.id.tvBookAvailable);
         pd = new ProgressDialog(this);
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
         //-----------------Listener--------------------
         btnDownloadPdf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +106,12 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
                 }
             }
         });
+
+        if(intent.getStringExtra("ACTION").equals("MY_BOOKS")){
+            tvBookAvailable.setVisibility(View.GONE);
+            btnDownloadPdf.setVisibility(View.GONE);
+            setMyBookData(intent.getStringExtra("BOOK_ISSUE_ID"));
+        }
 
         if(intent.getStringExtra("BOOK_TYPE").equals("BOOKS")){
             btnDownloadPdf.setVisibility(View.GONE);
@@ -124,7 +140,9 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
                                 if (response!=null) {
 
                                     try {
-                                        String filename = "demo.pdf";
+                                        String[] ext = book_detail.getString("file").split("[.]",0);
+                                        Log.i(TAG, "onResponse: "+ext[1]);
+                                        String filename = book_detail.getString("title").toLowerCase().replace(" ","_")+"."+ext[1];
                                         File dir = new File("/sdcard/LMS/");
                                         dir.mkdirs();
 
@@ -140,6 +158,8 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
                                     } catch (FileNotFoundException e) {
                                         e.printStackTrace();
                                     } catch (IOException e) {
+                                        e.printStackTrace();
+                                    } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
 
@@ -176,6 +196,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse: "+response);
+                        dialogLoading.dismiss();
                         try {
                             book_detail = new JSONObject(response).getJSONObject("book_detail").getJSONObject("book");
                             tvTitle.setText(book_detail.getString("title"));
@@ -226,12 +247,57 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse: "+response);
+                        dialogLoading.dismiss();
                         try {
                             book_detail = new JSONObject(response).getJSONObject("book_detail").getJSONObject("ebook");
                             tvTitle.setText(book_detail.getString("title"));
                             tvAuthor.setText(book_detail.getString("author"));
                             tvPublisher.setText(book_detail.getString("publisher"));
                             tvPrice.setText("-");
+                            tvDate.setText(book_detail.getString("date"));
+                            tvCategory.setText(book_detail.getString("category"));
+                            tvRecommendedBy.setText("");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error.getMessage());
+                    }
+                }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String bearer = user.getString("token_type","token_type")+" "+user.getString("access_token","access_token");
+                Map<String, String> headersSys = super.getHeaders();
+                Map<String, String> headers = new HashMap<String, String>();
+                headersSys.remove("Authorization");
+                headers.put("Authorization", bearer);
+                headers.putAll(headersSys);
+                return headers;
+            }
+        };
+        requestQueue.add(cacheRequest);
+    }
+
+    private void setMyBookData(String book_id){
+        CacheRequest cacheRequest = new CacheRequest(
+                Request.Method.GET,
+                Constants.GET_SINGLE_ISSUE_BOOK + book_id,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+                        dialogLoading.dismiss();
+                        try {
+                            book_detail = new JSONObject(response).getJSONArray("issued_record_detail").getJSONObject(0);
+                            tvTitle.setText(book_detail.getString("title"));
+                            tvAuthor.setText(book_detail.getString("author"));
+                            tvPublisher.setText(book_detail.getString("publisher"));
+                            tvPrice.setText(book_detail.getString("price"));
                             tvDate.setText(book_detail.getString("date"));
                             tvCategory.setText(book_detail.getString("category"));
                             tvRecommendedBy.setText("");
@@ -314,22 +380,52 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         tvLostCharges = dialog.findViewById(R.id.tvLostCharges);
         tvLateFee = dialog.findViewById(R.id.tvLateFee);
 
-        LocalDate date = LocalDate.now();
-
         if(intent.getStringExtra("ACTION").equals("VIEW_BOOK")){
+            LocalDate date = LocalDate.now();
             btnLostBook.setVisibility(View.GONE);
             btnPayFee.setVisibility(View.GONE);
+            tvReturnLastDate.setText(date.plusDays(15).toString());
+            tvLateFee.setText("Rs. 10/Day");
+
+        }else if(intent.getStringExtra("ACTION").equals("MY_BOOKS")){
+            btnLostBook.setVisibility(View.VISIBLE);
+            btnNotify.setVisibility(View.GONE);
         }
+
         if(book_detail != null){
             try {
+                LOST_BOOK_CHARGES = book_detail.getInt("price");
                 tvLostCharges.setText("Rs. "+book_detail.getString("price"));
-                tvReturnLastDate.setText(date.plusDays(15).toString());
-                if(book_detail.getInt("quantity")  <= 0){
-                    btnNotify.setVisibility(View.VISIBLE);
-                }else{
-                    btnNotify.setVisibility(View.GONE);
+                if(intent.getStringExtra("ACTION").equals("VIEW_BOOK")) {
+                    if(book_detail.getInt("quantity")  <= 0){
+                        btnNotify.setVisibility(View.VISIBLE);
+                    }else{
+                        btnNotify.setVisibility(View.GONE);
+                    }
+                }
+                else if(intent.getStringExtra("ACTION").equals("MY_BOOKS")){
+                    tvReturnLastDate.setText(book_detail.getString("expected_return_date"));
+
+                    Date date = new Date();
+                    Date expected_return_date = new SimpleDateFormat("yyyy-MM-dd").parse(book_detail.getString("expected_return_date"));
+
+                    if (expected_return_date.after(date)){
+                        btnPayFee.setVisibility(View.GONE);
+                        tvLateFee.setText("Rs. 10/Day");
+                        LATE_FEES = 0;
+                    }else{
+                        btnPayFee.setVisibility(View.VISIBLE);
+                        int y =date.getYear() - expected_return_date.getYear();
+                        int m = (y * 12) + (date.getMonth() - expected_return_date.getMonth());
+                        int diff = (m * 30) + (date.getDate() - expected_return_date.getDate());
+                        tvLateFee.setText("Rs. "+((10 * diff) - book_detail.getInt("fine")));
+                        LATE_FEES = (10 * diff) - book_detail.getInt("fine");
+                    }
                 }
             } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            catch (ParseException e) {
                 e.printStackTrace();
             }
         }
@@ -347,7 +443,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
             @Override
             public void onClick(View view) {
                 PAYMENT_ACTION = "LOST_BOOK";
-                payBookPayment();
+                payBookPayment(LOST_BOOK_CHARGES +LATE_FEES);
             }
         });
 
@@ -356,7 +452,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
             @Override
             public void onClick(View view) {
                 PAYMENT_ACTION = "LATE_FEE";
-                payBookPayment();
+                payBookPayment(LATE_FEES);
             }
         });
 
@@ -368,14 +464,10 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 
-    private void payBookPayment() {
-        /**
-         * ID = rzp_test_xw4gglzg9XYJrG
-         * SECRET = wvkbDaQg9KEomkeXwfyfdRVh
-         */
+    private void payBookPayment(int amount) {
 
         Checkout checkout = new Checkout();
-        checkout.setKeyID("rzp_test_xw4gglzg9XYJrG");
+        checkout.setKeyID("rzp_test_W9lNBqTkPjNmal");
 
         checkout.setImage(R.drawable.logo);
         final Activity activity = this;
@@ -383,15 +475,15 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         try {
             JSONObject options = new JSONObject();
 
-            options.put("key", "rzp_test_xw4gglzg9XYJrG");
+            options.put("key", "rzp_test_W9lNBqTkPjNmal");
             options.put("name", "Library Management System");
 //            options.put("description", "Reference No. #123456");
 //            options.put("image", "https://s3.amazonaws.com/rzp-mobile/images/rzp.jpg");
 //            options.put("order_id", "order_DBJOWzybf0sJbb");//from response of step 3.
             options.put("theme.color", "#FFA200");
             options.put("currency", "INR");
-            options.put("amount", "1000");//pass amount in currency subunits
-            options.put("prefill.email", "ravi@example.com");
+            options.put("amount", amount*100);//pass amount in currency subunits
+            options.put("prefill.email", user.getString("email","email"));
             options.put("prefill.contact","9988776655");
 //            JSONObject retryObj = new JSONObject();
 //            retryObj.put("enabled", true);
@@ -408,11 +500,135 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
     @Override
     public void onPaymentSuccess(String s) {
         Log.i(TAG, "onPaymentSuccess: "+s);
+        if(PAYMENT_ACTION.equals("LATE_FEE")){
+
+            payLateFee(s,LATE_FEES);
+
+        }else if(PAYMENT_ACTION.equals("LOST_BOOK")){
+
+            payLostBook(s, LOST_BOOK_CHARGES +LATE_FEES);
+
+        }
     }
 
     @Override
     public void onPaymentError(int i, String s) {
         Log.i(TAG, "onPaymentError: "+s+" "+i);
+    }
+
+    private void payLostBook(String payment_id,int amount) {
+        Log.i(TAG, "payLostBook: "+payment_id+" "+amount);
+        pd.setMessage("Wait...");
+        pd.show();
+
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.PAY_BOOK_LOST_FINE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+                        pd.dismiss();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject.has("payment")){
+                                Toast.makeText(ViewBookActivity.this, "Payment Successfully !", Toast.LENGTH_SHORT).show();
+                                MyBookActivity.myBookLiveViewModel.clearCache();
+                                MyBookActivity.myBookLiveViewModel.makeApiCall(MyBookActivity.context,user);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error.getMessage());
+                        pd.dismiss();
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<String,String>();
+                param.put("razorpay_payment_id",payment_id);
+                param.put("payable_fine",String.valueOf(amount));
+                param.put("isbid",intent.getStringExtra("BOOK_ISSUE_ID"));
+
+                return param;
+            }
+
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String bearer = user.getString("token_type","token_type")+" "+user.getString("access_token","access_token");
+                Map<String, String> headersSys = super.getHeaders();
+                Map<String, String> headers = new HashMap<String, String>();
+                headersSys.remove("Authorization");
+                headers.put("Authorization", bearer);
+                headers.putAll(headersSys);
+                return headers;
+            }
+        };
+
+        requestQueue.add(stringRequest);
+    }
+
+    private void payLateFee(String payment_id,int amount) {
+        Log.i(TAG, "payLateFee: "+payment_id+" "+amount);
+        pd.setMessage("Wait...");
+        pd.show();
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.PAY_BOOK_LATE_FINE,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+                        pd.dismiss();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject.has("payment")){
+                                Toast.makeText(ViewBookActivity.this, "Payment Successfully !", Toast.LENGTH_SHORT).show();
+                                MyBookActivity.myBookLiveViewModel.clearCache();
+                                MyBookActivity.myBookLiveViewModel.makeApiCall(MyBookActivity.context,user);
+                                finish();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error.getMessage());
+                        pd.dismiss();
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<String,String>();
+                param.put("razorpay_payment_id",payment_id);
+                param.put("payable_fine",String.valueOf(amount));
+                param.put("isbid", intent.getStringExtra("BOOK_ISSUE_ID"));
+
+                return param;
+            }
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                String bearer = user.getString("token_type","token_type")+" "+user.getString("access_token","access_token");
+                Map<String, String> headersSys = super.getHeaders();
+                Map<String, String> headers = new HashMap<String, String>();
+                headersSys.remove("Authorization");
+                headers.put("Authorization", bearer);
+                headers.putAll(headersSys);
+                return headers;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 
     public void goToBack(View view) {

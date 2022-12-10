@@ -1,6 +1,7 @@
 package com.shodh.lms;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -8,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.LinearSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
@@ -16,15 +18,21 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +44,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
 import com.shodh.lms.adapter.NewArrivalAdapter;
 import com.shodh.lms.adapter.NewNotificationAdapter;
@@ -52,15 +61,16 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class DashboardActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private final static String TAG = "LMS_TEST";
-    private ImageButton btnMenuBar,btnNotification;
-    private TextView tvNotificationCount,tvUserName,tvUserEmail,tvTotalBookCount,tvTotalEBookCount;
+    private ImageButton btnMenuBar,btnNotification,btnGetBookList;
+    private TextView tvNotificationCount,tvUserName,tvUserEmail,tvTotalBookCount,tvMyBookCountTitle,tvMyBookCount,tvTotalEBookCount;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ImageView imgUserProfile;
     private ProgressDialog pd;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     private RecyclerView newArrivalSlider;
     private LinearLayoutManager linearLayoutManager;
@@ -74,7 +84,12 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     private SharedPreferences user;
     private SharedPreferences.Editor userEditor;
 
-    @SuppressLint("MissingInflatedId")
+    private DialogLoading dialogLoading;
+
+    private float dX = 0;
+    private float dXOld = 0;
+    private boolean goToBookAction = true;
+    @SuppressLint({"MissingInflatedId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,17 +97,25 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         //------------------Hooks-------------------------
         btnMenuBar = (ImageButton) findViewById(R.id.btnMenuBar);
         btnNotification = (ImageButton) findViewById(R.id.btnNotification);
+        btnGetBookList = (ImageButton) findViewById(R.id.btnGetBookList);
         tvNotificationCount = (TextView) findViewById(R.id.tvNotificationCount);
         tvTotalBookCount = (TextView) findViewById(R.id.tvTotalBookCount);
         tvTotalEBookCount = (TextView) findViewById(R.id.tvTotalEBookCount);
+        tvMyBookCountTitle = (TextView) findViewById(R.id.tvMyBookCountTitle);
+        tvMyBookCount = (TextView) findViewById(R.id.tvMyBooksCount);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
         navigationView = (NavigationView) findViewById(R.id.navigationView);
         newArrivalSlider = (RecyclerView) findViewById(R.id.newArrivalSlider);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         pd = new ProgressDialog(this);
 
         requestQueue = Volley.newRequestQueue(this);
         user = getSharedPreferences("USER",MODE_PRIVATE);
         userEditor = user.edit();
+
+        //set loading dialog
+        dialogLoading = new DialogLoading(this);
+        dialogLoading.show();
 
         //-------------------Listener-------------------------
         btnMenuBar.setOnClickListener(new View.OnClickListener() {
@@ -109,6 +132,43 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             }
         });
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setDashboardData();
+                fetchNotification();
+            }
+        });
+
+        tvMyBookCountTitle.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+//                Log.i(TAG, "onTouch: touch");
+                switch (event.getAction()){
+                    case MotionEvent.ACTION_DOWN:
+                        dX = view.getX() - event.getRawX();
+                        dXOld = view.getX();
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+//                        Log.i(TAG, "onTouch: moved"+event.getRawX());
+                        view.setX(event.getRawX() + dX);
+                        if((view.getX()+view.getMeasuredWidth()) >= btnGetBookList.getX()){
+//                            Log.i(TAG, "onTouch: match");
+                            if(goToBookAction){
+                                startActivity(new Intent(DashboardActivity.this,MyBookActivity.class));
+                                goToBookAction = false;
+                            }
+                        }
+                        break;
+                    default:
+//                        Log.i(TAG, "onTouch: default");
+                        view.setX(dXOld);
+                        break;
+                }
+                return true;
+            }
+        });
+
         //set navigation listener to click the item
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -116,13 +176,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         setSliderRecycleView();
         setNavHeader();
         setDashboardData();
-        fetchNotification();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        newNotificationLiveViewModel.makeApiCall(this,user);
+        fetchNotification();
+        goToBookAction = true;
     }
 
     private void fetchNotification(){
@@ -137,6 +197,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                     notification = jsonArray;
                     tvNotificationCount.setText(String.valueOf(jsonArray.length()));
                     newNotificationAdapter.updateNotification(jsonArray);
+                    swipeRefreshLayout.setRefreshing(false);
+                }else{
+                    tvNotificationCount.setText("0");
                 }
             }
         });
@@ -152,25 +215,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         tvUserName.setText(user.getString("fname","fname").toUpperCase(Locale.ROOT)+" "+user.getString("lname","lname").toUpperCase(Locale.ROOT));
         tvUserEmail.setText(user.getString("email","email"));
 
-//        if(!user.getString("image","image").equals("")){
-//            imgUserProfile.setImageBitmap(ImageConvert.getStringBitmap(user.getString("image","image")));
-//        }
-
-        ImageRequest imageRequest = new ImageRequest(
-            Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"),
-            new Response.Listener<Bitmap>() {
-                @Override
-                public void onResponse(Bitmap response) {
-                    imgUserProfile.setImageBitmap(response);
-                }
-            }, 100, 100, null,
-            new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.i(TAG, "onErrorResponse: "+error.getMessage());
-            }
-        });
-        requestQueue.add(imageRequest);
+        Glide.with(this)
+                .load(Constants.IMAGE_BASE_PATH + user.getString("image_url","image_url"))
+                .into(imgUserProfile);
     }
 
     private void setDashboardData(){
@@ -181,10 +228,13 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse: "+response);
+                        swipeRefreshLayout.setRefreshing(false);
+                        dialogLoading.dismiss();
                         try {
                             JSONObject jsonObject = new JSONObject(response).getJSONObject("dashboard_data");
                             tvTotalBookCount.setText(jsonObject.getString("total_books"));
                             tvTotalEBookCount.setText(jsonObject.getString("total_ebooks"));
+                            tvMyBookCount.setText(jsonObject.getString("my_books"));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -318,6 +368,9 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
             case R.id.notification:
                 startActivity(new Intent(this,NotificationActivity.class));
                 break;
+            case R.id.history:
+                startActivity(new Intent(this,HistoryActivity.class));
+                break;
             case R.id.faqs:
                 startActivity(new Intent(this,MessageActivity.class));
                 break;
@@ -332,7 +385,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void logout() {
-
+        pd.setMessage("Logout...");
+        pd.show();
         StringRequest stringRequest = new StringRequest(
                 Request.Method.GET,
                 Constants.STUDENT_LOGOUT,
@@ -340,6 +394,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onResponse(String response) {
                         Log.i(TAG, "onResponse: "+response);
+                        pd.dismiss();
                         userEditor.clear();
                         userEditor.apply();
                         startActivity(new Intent(DashboardActivity.this,LoginActivity.class));
@@ -350,6 +405,7 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.i(TAG, "onErrorResponse: "+error.getMessage());
+                        pd.dismiss();
                     }
                 }){
             @Override
