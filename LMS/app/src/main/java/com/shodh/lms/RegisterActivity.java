@@ -1,5 +1,6 @@
 package com.shodh.lms;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -17,6 +18,20 @@ import android.widget.TableLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "LMS_TEST";
@@ -27,6 +42,9 @@ public class RegisterActivity extends AppCompatActivity {
     private TextView tvDob;
     private Spinner spGender,spCollege,spCourse,spSemester;
     private ProgressDialog pd;
+    private RequestQueue requestQueue;
+
+    private String[] gender = {"M","F","O"};
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -53,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
         spCourse = (Spinner) findViewById(R.id.spCourse);
         spSemester = (Spinner) findViewById(R.id.spSemester);
         pd = new ProgressDialog(this);
+        requestQueue = Volley.newRequestQueue(this);
 
         //--------------------listener------------------
         tvDob.setOnClickListener(new View.OnClickListener() {
@@ -79,7 +98,58 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void createAccount() {
         //do create account code here
+        pd.setMessage("Registering...");
+        pd.show();
 
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                Constants.STUDENT_REGISTER,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i(TAG, "onResponse: "+response);
+                        pd.dismiss();
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            if(jsonObject.has("registration")){
+                                if(jsonObject.getString("registration").equals("success")){
+                                    Toast.makeText(RegisterActivity.this, "Registration Success !", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.i(TAG, "onErrorResponse: "+error.getMessage());
+                        pd.dismiss();
+                    }
+                }){
+            @Nullable
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> param = new HashMap<>();
+                param.put("enroll",etEnrollment.getText().toString());
+                param.put("fname",etFName.getText().toString());
+                param.put("mname",etMName.getText().toString());
+                param.put("lname",etLName.getText().toString());
+                param.put("email",etEmail.getText().toString());
+                param.put("mo",etMobile.getText().toString());
+                param.put("DOB",tvDob.getText().toString());
+                param.put("password",etPassword.getText().toString());
+                param.put("address",etAddress.getText().toString());
+                param.put("gender",gender[spGender.getSelectedItemPosition()]);
+                param.put("college",spCollege.getSelectedItem().toString());
+                param.put("course",spCourse.getSelectedItem().toString());
+                param.put("sem",spSemester.getSelectedItem().toString());
+                return param;
+            }
+        };
+        requestQueue.add(stringRequest);
 
     }
 
