@@ -36,6 +36,7 @@ public class HistoryActivity extends AppCompatActivity {
         user = getSharedPreferences("USER",MODE_PRIVATE);
         recyclerViewHistory = (RecyclerView) findViewById(R.id.recycleViewHistory);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
+        dialogLoading = new DialogLoading(this);
 
 
         //------------------Listener--------------------------
@@ -50,7 +51,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void setRecycleViewHistory() {
         //set loading dialog
-        dialogLoading = new DialogLoading(this);
         dialogLoading.show();
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);

@@ -94,7 +94,6 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         tvBookAvailable = (TextView) findViewById(R.id.tvBookAvailable);
         pd = new ProgressDialog(this);
         dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
         //-----------------Listener--------------------
         btnDownloadPdf.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -189,6 +188,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
     }
 
     private void setBookData(String book_id){
+        dialogLoading.show();
         CacheRequest cacheRequest = new CacheRequest(
                 Request.Method.GET,
                 Constants.GET_SINGLE_BOOK + book_id,
@@ -240,6 +240,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
     }
 
     private void setEBookData(String book_id){
+        dialogLoading.show();
         CacheRequest cacheRequest = new CacheRequest(
                 Request.Method.GET,
                 Constants.GET_SINGLE_EBOOK + book_id,
@@ -284,6 +285,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
     }
 
     private void setMyBookData(String book_id){
+        dialogLoading.show();
         CacheRequest cacheRequest = new CacheRequest(
                 Request.Method.GET,
                 Constants.GET_SINGLE_ISSUE_BOOK + book_id,

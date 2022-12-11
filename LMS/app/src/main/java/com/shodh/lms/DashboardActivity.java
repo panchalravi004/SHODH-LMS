@@ -108,14 +108,11 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
         newArrivalSlider = (RecyclerView) findViewById(R.id.newArrivalSlider);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         pd = new ProgressDialog(this);
+        dialogLoading = new DialogLoading(this);
 
         requestQueue = Volley.newRequestQueue(this);
         user = getSharedPreferences("USER",MODE_PRIVATE);
         userEditor = user.edit();
-
-        //set loading dialog
-        dialogLoading = new DialogLoading(this);
-        dialogLoading.show();
 
         //-------------------Listener-------------------------
         btnMenuBar.setOnClickListener(new View.OnClickListener() {
@@ -221,6 +218,8 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
     }
 
     private void setDashboardData(){
+        //set loading dialog
+        dialogLoading.show();
         CacheRequest cacheRequest = new CacheRequest(
                 Request.Method.GET,
                 Constants.GET_DASHBOARD_COUNT,

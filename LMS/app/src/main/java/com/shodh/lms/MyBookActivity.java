@@ -61,8 +61,8 @@ public class MyBookActivity extends AppCompatActivity {
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipeRefreshLayout);
         user = getSharedPreferences("USER",MODE_PRIVATE);
         btnMyEbookDialog = (ImageButton) findViewById(R.id.btnMyEbooks);
-        myBookLiveViewModel = new MyBookLiveViewModel();
         context = MyBookActivity.this;
+        dialogLoading = new DialogLoading(this);
 
 
         //--------------------Listener-------------------------
@@ -78,13 +78,13 @@ public class MyBookActivity extends AppCompatActivity {
     private void setRecycleViewMyBookList() {
 
         //set loading dialog
-        dialogLoading = new DialogLoading(this);
         dialogLoading.show();
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerViewMyBookList.setLayoutManager(linearLayoutManager);
         myBooksAdapter = new MyBooksAdapter(this,books);
         recyclerViewMyBookList.setAdapter(myBooksAdapter);
+        myBookLiveViewModel = new MyBookLiveViewModel();
 
         myBookLiveViewModel.getBooks().observe(this, new Observer<JSONArray>() {
             @Override

@@ -53,7 +53,8 @@ public class BooksActivity extends AppCompatActivity {
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
         user = getSharedPreferences("USER",MODE_PRIVATE);
         intent = getIntent();
-        bookLiveViewModel = new BookLiveViewModel(intent.getStringExtra("BOOK_TYPE"));
+        dialogLoading = new DialogLoading(this);
+
 
         //----------------------Listener-----------------
         btnSearch.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +88,6 @@ public class BooksActivity extends AppCompatActivity {
     private void setBooksListRecycleView() {
 
         //set loading dialog
-        dialogLoading = new DialogLoading(this);
         dialogLoading.show();
 
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
@@ -95,6 +95,8 @@ public class BooksActivity extends AppCompatActivity {
 
         booksAdapter = new BooksAdapter(this,books,intent.getStringExtra("BOOK_TYPE"));
         recyclerView.setAdapter(booksAdapter);
+
+        bookLiveViewModel = new BookLiveViewModel(intent.getStringExtra("BOOK_TYPE"));
 
         bookLiveViewModel.getBooks().observe(this, new Observer<JSONArray>() {
             @Override

@@ -73,7 +73,6 @@ public class MyBookLiveViewModel extends ViewModel {
         };
         requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(cacheRequest);
-        requestQueue.getCache().clear();
     }
     public void clearCache(){
         requestQueue.getCache().clear();
