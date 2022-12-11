@@ -297,7 +297,6 @@
                         android:id="@+id/btnGoToSectionTwo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:backgroundTint="@color/lms_orange"
                         android:onClick="goToSectionTwo"
                         android:text="Next"
                         app:cornerRadius="20sp" />
