@@ -1,8 +1,10 @@
 package com.shodh.lms;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
@@ -16,6 +18,7 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.RenderEffect;
@@ -46,6 +49,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.google.android.material.navigation.NavigationView;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanIntentResult;
+import com.journeyapps.barcodescanner.ScanOptions;
 import com.shodh.lms.adapter.NewArrivalAdapter;
 import com.shodh.lms.adapter.NewNotificationAdapter;
 import com.shodh.lms.request.CacheRequest;
@@ -344,6 +350,22 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
 
     }
 
+    // Register the launcher and result handler
+    // scan book qr code
+    ActivityResultLauncher<ScanOptions> barcodeLauncher = registerForActivityResult(new ScanContract(),
+            (ScanIntentResult result) -> {
+        if(result.getContents() == null) {
+            Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+            Intent i = new Intent(this, ViewBookActivity.class);
+            i.putExtra("ACTION","VIEW_BOOK");
+            i.putExtra("BOOK_TYPE","EBOOKS");
+            i.putExtra("BOOK_ID",result.getContents());
+            startActivity(i);
+        }
+    });
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -369,6 +391,15 @@ public class DashboardActivity extends AppCompatActivity implements NavigationVi
                 break;
             case R.id.history:
                 startActivity(new Intent(this,HistoryActivity.class));
+                break;
+            case R.id.scanQR:
+                ScanOptions options = new ScanOptions();
+                options.setOrientationLocked(true);
+                options.setPrompt("Scan a barcode");
+                options.setBeepEnabled(true);
+                options.setCaptureActivity(Capture.class);
+                options.setBarcodeImageEnabled(true);
+                barcodeLauncher.launch(options);
                 break;
             case R.id.faqs:
                 startActivity(new Intent(this,MessageActivity.class));

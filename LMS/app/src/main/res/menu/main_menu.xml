@@ -30,6 +30,10 @@
         android:title="@string/history"
         android:icon="@drawable/icon_history"/>
     <item
+        android:id="@+id/scanQR"
+        android:title="@string/scan_qr"
+        android:icon="@drawable/icon_qr_scanner_black"/>
+    <item
         android:id="@+id/faqs"
         android:title="@string/faqs"
         android:icon="@drawable/icon_help"/>

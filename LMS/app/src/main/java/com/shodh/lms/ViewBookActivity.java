@@ -14,16 +14,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 import com.shodh.lms.request.CacheRequest;
@@ -61,7 +70,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
     private SharedPreferences user;
     private TextView tvTitle,tvAuthor,tvPublisher,tvPrice,tvDate,tvCategory,tvRecommendedBy,tvBookAvailable,tvReturnLastDate,tvLostCharges,tvLateFee;
     private Button btnLostBook,btnPayFee,btnNotify;
-    private ImageButton btnDownloadPdf,btnOpenBottomDialog;
+    private ImageButton btnDownloadPdf,btnOpenBottomDialog,btnGenerateQR;
     private ProgressDialog pd;
     private DialogLoading dialogLoading;
     private JSONObject book_detail;
@@ -84,6 +93,7 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         user = getSharedPreferences("USER",MODE_PRIVATE);
         btnDownloadPdf = (ImageButton) findViewById(R.id.btnDownloadBookPdf);
         btnOpenBottomDialog = (ImageButton) findViewById(R.id.btnOpenBottomDialog);
+        btnGenerateQR = (ImageButton) findViewById(R.id.btnGenerateQR);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvAuthor = (TextView) findViewById(R.id.tvAuthor);
         tvPublisher = (TextView) findViewById(R.id.tvPublisher);
@@ -109,16 +119,19 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
         if(intent.getStringExtra("ACTION").equals("MY_BOOKS")){
             tvBookAvailable.setVisibility(View.GONE);
             btnDownloadPdf.setVisibility(View.GONE);
+            btnGenerateQR.setVisibility(View.GONE);
             setMyBookData(intent.getStringExtra("BOOK_ISSUE_ID"));
         }
 
         if(intent.getStringExtra("BOOK_TYPE").equals("BOOKS")){
             btnDownloadPdf.setVisibility(View.GONE);
             setBookData(intent.getStringExtra("BOOK_ID"));
+            btnGenerateQR.setVisibility(View.GONE);
         }
         else if(intent.getStringExtra("BOOK_TYPE").equals("EBOOKS")){
             btnOpenBottomDialog.setVisibility(View.GONE);
             tvBookAvailable.setVisibility(View.GONE);
+            btnGenerateQR.setVisibility(View.VISIBLE);
             setEBookData(intent.getStringExtra("BOOK_ID"));
         }
     }
@@ -635,5 +648,48 @@ public class ViewBookActivity extends AppCompatActivity implements PaymentResult
 
     public void goToBack(View view) {
         finish();
+    }
+
+    public void generateQRCode(View view) {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_qr_code);
+        ImageView qr = dialog.findViewById(R.id.imgQRCode);
+        ImageButton btnShare = dialog.findViewById(R.id.btnShare);
+        MultiFormatWriter writer = new MultiFormatWriter();
+
+        try
+        {
+            BitMatrix matrix = writer.encode(intent.getStringExtra("BOOK_ID"), BarcodeFormat.QR_CODE,600,600);
+            BarcodeEncoder encoder = new BarcodeEncoder();
+            Bitmap bitmap = encoder.createBitmap(matrix);
+            //set data image to imageview
+            qr.setImageBitmap(bitmap);
+
+            btnShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                    String bitmapPath = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap,"title", null);
+                    Uri bitmapUri = Uri.parse(bitmapPath);
+                    share.putExtra(Intent.EXTRA_STREAM, bitmapUri );
+                    share.putExtra(Intent.EXTRA_TEXT,tvTitle.getText());
+                    share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    share.setType("image/png");
+                    startActivity(share);
+                }
+            });
+
+        } catch (WriterException e)
+        {
+            e.printStackTrace();
+        }
+
+
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.getWindow().getAttributes().windowAnimations = R.style.BottomDialogAnimation;
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
 }
