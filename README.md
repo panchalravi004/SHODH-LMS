@@ -29,3 +29,9 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
 }
 ```
+### QR Code Generator and Scanner
+```
+dependencies {
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+}
+```
